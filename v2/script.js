@@ -229,8 +229,11 @@ const POS = [
 (function nav() {
   const b = document.querySelector('.burger'), m = document.getElementById('menu');
   if (!b || !m) return;
-  b.addEventListener('click', () => { const o = m.classList.toggle('is-open'); b.setAttribute('aria-expanded', String(o)); b.setAttribute('aria-label', o ? 'Close menu' : 'Open menu'); });
-  m.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { m.classList.remove('is-open'); b.setAttribute('aria-expanded', 'false'); }));
+  const setOpen = (o) => { m.classList.toggle('is-open', o); b.setAttribute('aria-expanded', String(o)); b.setAttribute('aria-label', o ? 'Close menu' : 'Open menu'); };
+  b.addEventListener('click', () => setOpen(!m.classList.contains('is-open')));
+  m.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && m.classList.contains('is-open')) { setOpen(false); b.focus(); } });
+  document.addEventListener('click', (e) => { if (m.classList.contains('is-open') && !m.contains(e.target) && !b.contains(e.target)) setOpen(false); });
 })();
 
 /* ── Reveal blocks ── */

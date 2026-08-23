@@ -91,7 +91,7 @@ function dayIndex() {
   const name = document.getElementById('card-name');
   const out = document.getElementById('daily-reading');
   let current = dayIndex();
-  let flipped = false;
+  let flipped = false, busy = false;
 
   const load = (i) => {
     const c = ARCANA[i];
@@ -111,6 +111,8 @@ function dayIndex() {
     `;
     document.getElementById('draw-again').addEventListener('click', (e) => {
       e.stopPropagation();
+      if (busy) return;
+      busy = true;
       btn.classList.add('is-shuffling');
       btn.classList.remove('is-flipped');
       flipped = false;
@@ -121,16 +123,17 @@ function dayIndex() {
         do { next = Math.floor(Math.random() * ARCANA.length); } while (next === current);
         current = next;
         load(current);
-        setTimeout(() => { btn.classList.add('is-flipped'); flipped = true; show(current); }, 350);
+        setTimeout(() => { btn.classList.add('is-flipped'); flipped = true; busy = false; show(current); btn.setAttribute('aria-label', 'Today’s card: ' + ARCANA[current].name); const again = document.getElementById('draw-again'); if (again) again.focus({ preventScroll: true }); }, 350);
       }, 700);
     });
   };
 
   load(current);
   btn.addEventListener('click', () => {
-    if (flipped) return;
+    if (flipped || busy) return;
     btn.classList.add('is-flipped');
     flipped = true;
+    btn.setAttribute('aria-label', 'Today’s card: ' + ARCANA[current].name);
     setTimeout(() => show(current), 450);
   });
 })();
@@ -159,15 +162,15 @@ function dayIndex() {
   const toggle = document.querySelector('.nav-toggle');
   const nav = document.getElementById('site-nav');
   if (!toggle || !nav) return;
-  toggle.addEventListener('click', () => {
-    const open = nav.classList.toggle('is-open');
+  const setOpen = (open) => {
+    nav.classList.toggle('is-open', open);
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-  });
-  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    nav.classList.remove('is-open');
-    toggle.setAttribute('aria-expanded', 'false');
-  }));
+  };
+  toggle.addEventListener('click', () => setOpen(!nav.classList.contains('is-open')));
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && nav.classList.contains('is-open')) { setOpen(false); toggle.focus(); } });
+  document.addEventListener('click', (e) => { if (nav.classList.contains('is-open') && !nav.contains(e.target) && !toggle.contains(e.target)) setOpen(false); });
 })();
 
 /* ── Reveal on scroll ── */
