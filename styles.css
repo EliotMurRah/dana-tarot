@@ -283,7 +283,7 @@ main { position: relative; z-index: 1; }
 .daily__stage { display: grid; grid-template-columns: auto 1fr; gap: 3rem; align-items: center; max-width: 860px; margin: 0 auto; text-align: left; }
 .tarot-card {
   background: none; border: 0; padding: 0; cursor: pointer;
-  width: 220px; height: 366px; perspective: 1400px;
+  width: 240px; height: 360px; perspective: 1400px;
   outline-offset: 8px; border-radius: 14px;
 }
 .tarot-card:focus-visible { outline: 2px solid var(--plum); }
@@ -306,6 +306,9 @@ main { position: relative; z-index: 1; }
   box-shadow: 0 24px 40px -10px rgba(74,59,87,.32);
 }
 .tarot-card__back svg { width: 100%; height: 100%; }
+.tarot-card__art { height: 100%; border-radius: 8px; overflow: hidden; border: 1px solid var(--gold); }
+.tarot-card__art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tarot-card__art[hidden], .tarot-card__frame[hidden] { display: none; }
 .tarot-card__front {
   transform: rotateY(180deg);
   background: linear-gradient(180deg, #FFFDFB, #F6ECF1);

@@ -76,11 +76,17 @@ const ARCANA = [
 ];
 
 /* ── Daily card: same card all day, "shuffle" gives a fresh one ── */
+/* Cards that have Dana's illustrated art (assets/cards-daylight/manifest.js). While the deck is
+   still being painted, the daily draw comes only from the finished cards. */
+const WITH_ART = (window.DANA_CARDS || []).filter(i => i >= 0 && i < ARCANA.length);
+const POOL = WITH_ART.length ? WITH_ART : ARCANA.map((_, i) => i);
+const artSrc = (i) => WITH_ART.includes(i) ? 'assets/cards-daylight/' + String(i).padStart(2, '0') + '.jpg' : null;
+
 function dayIndex() {
   const d = new Date();
   const seed = d.getFullYear() * 372 + (d.getMonth() + 1) * 31 + d.getDate();
   let x = Math.sin(seed) * 10000;
-  return Math.floor((x - Math.floor(x)) * ARCANA.length);
+  return POOL[Math.floor((x - Math.floor(x)) * POOL.length)];
 }
 
 (function dailyCard() {
@@ -93,12 +99,21 @@ function dayIndex() {
   let current = dayIndex();
   let flipped = false, busy = false;
 
+  const artBox = document.getElementById('card-art');
+  const frame = btn.querySelector('.tarot-card__frame');
   const load = (i) => {
     const c = ARCANA[i];
     num.textContent = c.n;
     name.textContent = c.name;
     sym.innerHTML = `<svg viewBox="0 0 120 120" aria-hidden="true">${c.svg}</svg>`;
+    const src = artSrc(i);
+    if (src && artBox) {
+      artBox.innerHTML = `<img src="${src}" width="560" height="882" alt="${c.name}" decoding="async">`;
+      artBox.hidden = false; frame.hidden = true;
+    } else if (artBox) { artBox.hidden = true; frame.hidden = false; }
   };
+  // warm the cache for today's card so the first flip is instant
+  if (artSrc(current)) { const im = new Image(); im.src = artSrc(current); }
 
   const show = (i) => {
     const c = ARCANA[i];
@@ -120,7 +135,7 @@ function dayIndex() {
       setTimeout(() => {
         btn.classList.remove('is-shuffling');
         let next;
-        do { next = Math.floor(Math.random() * ARCANA.length); } while (next === current);
+        do { next = POOL[Math.floor(Math.random() * POOL.length)]; } while (next === current && POOL.length > 1);
         current = next;
         load(current);
         setTimeout(() => { btn.classList.add('is-flipped'); flipped = true; busy = false; show(current); btn.setAttribute('aria-label', 'Today’s card: ' + ARCANA[current].name); const again = document.getElementById('draw-again'); if (again) again.focus({ preventScroll: true }); }, 350);
