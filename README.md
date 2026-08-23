@@ -20,7 +20,7 @@ python3 -m http.server 8090 --directory dana-tarot
 | Where | What to change |
 |---|---|
 | `<title>` / `meta description` | Dana's full name or brand name, if she has one |
-| **About** section | `[X] years`, `[and other languages]`, `[City]`; swap the placeholder for a photo: `<img src="assets/dana.jpg" alt="Dana">` |
+| **About** section | `[X] years`, `[and other languages]`, `[City]`; photo is in `assets/` (portrait crop + square for link previews) |
 | **Readings** | Names, durations, prices (currently €25 / €45 / €85) |
 | **Kind words** | Real testimonials + names (or delete the section) |
 | **Book a reading** | `hello@example.com` (appears twice: the link and the form `action`), Instagram URL + handle, WhatsApp number (`https://wa.me/<number>`) |
