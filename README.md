@@ -26,6 +26,9 @@ python3 -m http.server 8090 --directory dana-tarot
 | **Book a reading** | `hello@example.com` (appears twice: the link and the form `action`), Instagram URL + handle, WhatsApp number (`https://wa.me/<number>`) |
 | Footer | Name / year text |
 
+## Card art (v2)
+`assets/cards/00.jpg … 21.jpg` are the 22 Major Arcana of the 1909 Rider–Waite–Smith deck (Pamela Colman Smith), public domain, from Wikimedia Commons — trimmed and resized to 440 px wide. The antique tint is CSS (`.flip__art img { filter }` in `v2/styles.css`), so it can be adjusted or removed without touching the images.
+
 ## Daily card
 `script.js` holds the 22 Major Arcana with keywords and a short, gentle meaning for each. The card of the day is the same for everyone all day; "Draw another" shuffles a fresh one. Edit the text in the `ARCANA` array to match Dana's voice.
 

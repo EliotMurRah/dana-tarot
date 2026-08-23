@@ -108,21 +108,22 @@ const POS = [
       b.setAttribute('aria-label', 'Card ' + (i + 1) + ' of ' + n);
       b.innerHTML = '<svg viewBox="0 0 120 200"><use href="#back"/></svg>';
       b.addEventListener('click', () => pick(b));
+      b.addEventListener('pointerenter', () => warm(cardIdx), { once: true });
+      b.addEventListener('touchstart', () => warm(cardIdx), { once: true, passive: true });
       deck.appendChild(b);
     });
   };
 
-  const cardFace = (c) => `
+  const art = (i) => '../assets/cards/' + String(i).padStart(2, '0') + '.jpg';
+  const cardFace = (c, i) => `
     <div class="flip">
       <div class="flip__face flip__front">
-        <div class="flip__frame">
-          <span class="flip__num">${c.n}</span>
-          <div class="flip__sym"><svg viewBox="0 0 120 120" aria-hidden="true">${c.svg}</svg></div>
-          <span class="flip__name">${c.name}</span>
-        </div>
+        <div class="flip__art"><img src="${art(i)}" width="440" height="758" alt="${c.name} — Rider-Waite-Smith tarot, 1909" decoding="async"></div>
       </div>
       <div class="flip__face flip__back"><svg viewBox="0 0 120 200"><use href="#back"/></svg></div>
     </div>`;
+  // warm the image cache for a card the moment a finger/cursor lands on it, so the flip never waits
+  const warm = (i) => { const im = new Image(); im.src = art(i); };
 
   const setNext = () => {
     slots.forEach((s, i) => s.classList.toggle('is-next', i === picked.length));
@@ -135,9 +136,13 @@ const POS = [
     picked.push(idx);
     const slot = slots[picked.length - 1];
     const holder = slot.querySelector('.slot__card');
-    holder.innerHTML = cardFace(ARCANA[idx]);
+    holder.innerHTML = cardFace(ARCANA[idx], idx);
     holder.setAttribute('aria-label', POS[picked.length - 1].label + ': ' + ARCANA[idx].name);
-    requestAnimationFrame(() => requestAnimationFrame(() => holder.querySelector('.flip').classList.add('is-open')));
+    const img = holder.querySelector('img');
+    const open = () => holder.querySelector('.flip').classList.add('is-open');
+    // flip once the art has arrived (or after a short grace period on slow connections)
+    let opened = false; const go = () => { if (!opened) { opened = true; requestAnimationFrame(() => requestAnimationFrame(open)); } };
+    if (img.complete) go(); else { img.addEventListener('load', go, { once: true }); img.addEventListener('error', go, { once: true }); setTimeout(go, 1500); }
     setNext();
 
     if (picked.length < 3) {

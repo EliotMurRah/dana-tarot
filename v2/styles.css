@@ -181,7 +181,21 @@ main, .top, .foot { position: relative; z-index: 1; }
 .flip__back svg { width: 100%; height: 100%; }
 .flip__front {
   background: linear-gradient(180deg, #1E1A3A, #14122A);
-  border: 1px solid var(--gold); padding: 6px;
+  border: 1px solid var(--gold); padding: 5px;
+  box-shadow: 0 20px 40px -14px rgba(0,0,0,.7), 0 0 28px rgba(212,175,106,.12);
+}
+.flip__art { position: relative; height: 100%; border-radius: 4px; overflow: hidden; border: 1px solid rgba(212,175,106,.45); background: #2a2340; }
+.flip__art img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  /* warm antique plate: gentle sepia, softened contrast */
+  filter: sepia(.38) saturate(.82) contrast(.94) brightness(.95);
+}
+.flip__art::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(20,16,40,.45) 100%),
+    linear-gradient(180deg, rgba(212,175,106,.10), rgba(94,34,56,.14));
+  mix-blend-mode: multiply;
 }
 .flip__frame { height: 100%; border: 1px solid var(--gold-dim); border-radius: 4px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: .7rem .4rem; }
 .flip__num { font-family: var(--display); font-size: .85rem; color: var(--gold); letter-spacing: .15em; }
