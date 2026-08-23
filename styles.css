@@ -212,7 +212,7 @@ main { position: relative; z-index: 1; }
 }
 
 /* ── About ── */
-.about { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(2rem, 6vw, 5rem); align-items: center; }
+.about { display: grid; grid-template-columns: .95fr 1.05fr; gap: clamp(2rem, 6vw, 5rem); align-items: center; }
 .portrait-placeholder {
   position: relative; max-width: 340px; margin: 0 auto;
   border-radius: 200px; overflow: hidden;
@@ -223,7 +223,7 @@ main { position: relative; z-index: 1; }
   position: absolute; bottom: 1.4rem; left: 0; right: 0; text-align: center;
   font-size: .8rem; letter-spacing: .08em; color: var(--plum-soft);
 }
-.about__portrait img { border-radius: 200px; box-shadow: var(--shadow); max-width: 340px; width: 100%; height: auto; margin: 0 auto; border: 1px solid rgba(201,163,107,.35); aspect-ratio: 940 / 1254; object-fit: cover; }
+.about__portrait img { border-radius: 28px; box-shadow: var(--shadow); max-width: 460px; width: 100%; height: auto; margin: 0 auto; border: 1px solid rgba(201,163,107,.35); aspect-ratio: 1 / 1; object-fit: cover; }
 .about__text p { color: var(--plum-soft); }
 .about__text p strong { color: var(--plum); }
 .about__facts { list-style: none; padding: 0; margin: 1.5rem 0 0; display: grid; gap: .5rem; }
