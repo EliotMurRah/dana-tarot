@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dana · The Reading Room</title>
+  <meta name="description" content="Tarot readings by candlelight with Dana. Draw your own three-card spread, then book a reading.">
+  <meta name="theme-color" content="#0B0A14">
+  <meta property="og:title" content="Dana · The Reading Room">
+  <meta property="og:description" content="Tarot readings by candlelight. Draw your own three-card spread, then book a reading with Dana.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230B0A14'/%3E%3Cpath d='M16 5l2.6 7.4L26 15l-7.4 2.6L16 25l-2.6-7.4L6 15l7.4-2.6z' fill='%23D4AF6A'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="veil" aria-hidden="true"></div>
+  <canvas class="constellations" aria-hidden="true"></canvas>
+
+  <header class="top">
+    <a class="sigil" href="#top" aria-label="Dana — home">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M20 4l3.4 9.6L33 17l-9.6 3.4L20 30l-3.4-9.6L7 17l9.6-3.4z" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="20" cy="17" r="2" fill="currentColor"/></svg>
+      <span>Dana</span>
+    </a>
+    <nav class="menu" id="menu">
+      <a href="#spread">The Spread</a>
+      <a href="#readings">Readings</a>
+      <a href="#reader">The Reader</a>
+      <a href="#ritual">The Ritual</a>
+      <a href="#questions">Questions</a>
+      <a href="#book" class="menu__cta">Request a reading</a>
+    </nav>
+    <button class="burger" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </header>
+
+  <main id="top">
+
+    <!-- ═════════ ENTRANCE ═════════ -->
+    <section class="entrance">
+      <div class="entrance__frame">
+        <svg class="ornament ornament--top" viewBox="0 0 300 30" aria-hidden="true"><use href="#flourish"/></svg>
+        <p class="kicker">By candlelight</p>
+        <h1>The<br>Reading<br>Room</h1>
+        <p class="entrance__sub">Tarot with Dana — honest, unhurried, and a little bit magic.</p>
+        <div class="entrance__actions">
+          <a class="btn btn--gold" href="#spread">Draw your spread</a>
+          <a class="btn btn--line" href="#book">Request a reading</a>
+        </div>
+        <svg class="ornament ornament--bottom" viewBox="0 0 300 30" aria-hidden="true"><use href="#flourish"/></svg>
+      </div>
+
+      <div class="candle" aria-hidden="true">
+        <div class="candle__flame"></div>
+        <div class="candle__wick"></div>
+        <div class="candle__body"></div>
+        <div class="candle__glow"></div>
+      </div>
+
+      <a class="scroll-cue" href="#spread" aria-label="Scroll down"><span></span></a>
+    </section>
+
+    <!-- ═════════ THE SPREAD ═════════ -->
+    <section class="block spread" id="spread">
+      <header class="block__head">
+        <p class="kicker">A three-card spread</p>
+        <h2>Ask the cards.</h2>
+        <p class="block__lede">Hold a question in your mind. Choose three cards from the deck — one for what was, one for what is, one for what is coming.</p>
+      </header>
+
+      <div class="deck" id="deck" aria-label="Tarot deck — pick three cards">
+        <!-- fanned cards injected by script -->
+      </div>
+
+      <div class="table" id="table">
+        <div class="slot" data-pos="0">
+          <p class="slot__label">I · What was</p>
+          <div class="slot__card" aria-live="polite"><div class="slot__empty"></div></div>
+        </div>
+        <div class="slot" data-pos="1">
+          <p class="slot__label">II · What is</p>
+          <div class="slot__card" aria-live="polite"><div class="slot__empty"></div></div>
+        </div>
+        <div class="slot" data-pos="2">
+          <p class="slot__label">III · What comes</p>
+          <div class="slot__card" aria-live="polite"><div class="slot__empty"></div></div>
+        </div>
+      </div>
+
+      <div class="interpretation" id="interpretation" aria-live="polite">
+        <p class="interpretation__hint">Choose your first card from the deck above.</p>
+      </div>
+
+      <p class="spread__after">
+        <button class="btn btn--line" id="reset-spread" type="button" hidden>Shuffle &amp; begin again</button>
+        <a class="btn btn--gold" href="#book" id="spread-book" hidden>Go deeper with Dana</a>
+      </p>
+    </section>
+
+    <!-- ═════════ READINGS (menu card) ═════════ -->
+    <section class="block readings" id="readings">
+      <header class="block__head">
+        <p class="kicker">Readings</p>
+        <h2>The menu.</h2>
+      </header>
+
+      <div class="menu-card">
+        <svg class="menu-card__corner menu-card__corner--tl" viewBox="0 0 40 40" aria-hidden="true"><use href="#corner"/></svg>
+        <svg class="menu-card__corner menu-card__corner--tr" viewBox="0 0 40 40" aria-hidden="true"><use href="#corner"/></svg>
+        <svg class="menu-card__corner menu-card__corner--bl" viewBox="0 0 40 40" aria-hidden="true"><use href="#corner"/></svg>
+        <svg class="menu-card__corner menu-card__corner--br" viewBox="0 0 40 40" aria-hidden="true"><use href="#corner"/></svg>
+
+        <article class="dish">
+          <div class="dish__row">
+            <h3>One Card</h3>
+            <span class="dish__dots" aria-hidden="true"></span>
+            <span class="dish__price">€25</span>
+          </div>
+          <p class="dish__meta">15 minutes · written or live</p>
+          <p>One question, one card, one honest answer. For the decision you keep circling. You receive a short written note to keep.</p>
+          <a href="#book" data-reading="One Card">Request →</a>
+        </article>
+
+        <article class="dish dish--star">
+          <div class="dish__row">
+            <h3>Three Card Spread <span class="dish__badge">most loved</span></h3>
+            <span class="dish__dots" aria-hidden="true"></span>
+            <span class="dish__price">€45</span>
+          </div>
+          <p class="dish__meta">30 minutes · video or in person</p>
+          <p>What was, what is, what is coming. Space for one or two questions, and a written summary sent afterwards.</p>
+          <a href="#book" data-reading="Three Card Spread">Request →</a>
+        </article>
+
+        <article class="dish">
+          <div class="dish__row">
+            <h3>Celtic Cross</h3>
+            <span class="dish__dots" aria-hidden="true"></span>
+            <span class="dish__price">€85</span>
+          </div>
+          <p class="dish__meta">60 minutes · video or in person</p>
+          <p>Ten cards for the big questions — love, work, a crossroads. We take our time. Written summary and a follow-up message included.</p>
+          <a href="#book" data-reading="Celtic Cross">Request →</a>
+        </article>
+
+        <p class="menu-card__foot">Gift readings available · <a href="#book" data-reading="Gift voucher">ask about vouchers</a></p>
+      </div>
+    </section>
+
+    <!-- ═════════ THE READER ═════════ -->
+    <section class="block reader" id="reader">
+      <div class="reader__portrait">
+        <div class="arch">
+          <!-- Replace with Dana's photo: <img src="../assets/dana.jpg" alt="Dana"> -->
+          <div class="arch__placeholder" role="img" aria-label="Portrait of Dana (placeholder)">
+            <svg viewBox="0 0 200 280" aria-hidden="true">
+              <circle cx="100" cy="104" r="36" fill="none" stroke="#D4AF6A" stroke-width="1" opacity=".7"/>
+              <path d="M40 250c6-50 34-78 60-78s54 28 60 78" fill="none" stroke="#D4AF6A" stroke-width="1" opacity=".7"/>
+              <path d="M100 30l2 5.5 5.5 2-5.5 2-2 5.5-2-5.5-5.5-2 5.5-2z" fill="#D4AF6A"/>
+            </svg>
+            <span>Dana’s photo</span>
+          </div>
+        </div>
+      </div>
+      <div class="reader__text">
+        <p class="kicker">The reader</p>
+        <h2>Dana.</h2>
+        <p class="drop">Dana has read tarot for <strong>[X] years</strong> — first for friends around a kitchen table, now for people across the world. She doesn’t believe the cards tell you what will happen. She believes they show you what is already true, so you can choose with a clearer heart.</p>
+        <p>Her readings are gentle but honest. You leave with something practical to hold — and a little more trust in yourself.</p>
+        <ul class="reader__facts">
+          <li>Intuitive, trauma-aware approach</li>
+          <li>Readings in English <em>[and other languages]</em></li>
+          <li>Online by video, or in person in <em>[City]</em></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═════════ THE RITUAL ═════════ -->
+    <section class="block ritual" id="ritual">
+      <header class="block__head">
+        <p class="kicker">The ritual</p>
+        <h2>How a reading unfolds.</h2>
+      </header>
+      <ol class="rite">
+        <li><span class="rite__num">I</span><h3>Request</h3><p>Choose a reading and send a few words with a day and time that suit you. Dana replies within a day.</p></li>
+        <li><span class="rite__num">II</span><h3>Arrive</h3><p>Bring a question — or nothing at all. The cards are good at finding what matters.</p></li>
+        <li><span class="rite__num">III</span><h3>Read</h3><p>We sit, shuffle, and read together, live. Ask anything along the way. It’s a conversation.</p></li>
+        <li><span class="rite__num">IV</span><h3>Keep</h3><p>Afterwards you receive a written summary and a photo of your spread, so the message stays with you.</p></li>
+      </ol>
+    </section>
+
+    <!-- ═════════ WHISPERS ═════════ -->
+    <section class="whispers">
+      <div class="whispers__track" id="whispers">
+        <figure class="whisper is-active">
+          <blockquote>“I came in anxious and left feeling like I could finally breathe. Dana doesn’t tell you what to do — she helps you remember what you already know.”</blockquote>
+          <figcaption>[Name] · three-card spread</figcaption>
+        </figure>
+        <figure class="whisper">
+          <blockquote>“Honest, warm, and surprisingly practical. I’ve had readings before, but this was the first one I actually used.”</blockquote>
+          <figcaption>[Name] · Celtic Cross</figcaption>
+        </figure>
+        <figure class="whisper">
+          <blockquote>“Like talking to a wise friend who happened to have a deck of cards. I booked again the next month.”</blockquote>
+          <figcaption>[Name] · one card</figcaption>
+        </figure>
+      </div>
+      <div class="whispers__dots" role="tablist" aria-label="Testimonials">
+        <button role="tab" aria-selected="true" aria-label="Testimonial 1"></button>
+        <button role="tab" aria-selected="false" aria-label="Testimonial 2"></button>
+        <button role="tab" aria-selected="false" aria-label="Testimonial 3"></button>
+      </div>
+    </section>
+
+    <!-- ═════════ QUESTIONS ═════════ -->
+    <section class="block questions" id="questions">
+      <header class="block__head">
+        <p class="kicker">Questions</p>
+        <h2>Before you come.</h2>
+      </header>
+      <div class="q">
+        <details><summary>Do I need to believe in tarot for it to work?</summary><p>No. Think of the cards as a beautiful mirror. Whether you see them as spiritual, psychological, or simply a way to slow down and reflect, the conversation around them is what matters.</p></details>
+        <details><summary>Can Dana tell me the future?</summary><p>She reads the energy of where things are heading — not a fixed script. You always have a say in what comes next. That is the whole point.</p></details>
+        <details><summary>What if I don’t have a specific question?</summary><p>Completely fine. Many of the most meaningful readings start with “I just feel like I need this.” You’ll find the thread together.</p></details>
+        <details><summary>How do online readings work?</summary><p>You meet on a video call. Dana shuffles and lays the cards on camera, and you talk through them just as you would in person. You receive a photo of your spread afterwards.</p></details>
+        <details><summary>Is everything we talk about private?</summary><p>Always. What is shared in a reading stays in the reading.</p></details>
+      </div>
+    </section>
+
+    <!-- ═════════ BOOK ═════════ -->
+    <section class="block book" id="book">
+      <div class="book__inner">
+        <div class="book__text">
+          <p class="kicker">Request a reading</p>
+          <h2>The candle is lit.</h2>
+          <p>Send a few words and Dana will reply within a day with available times. No deposit needed to ask.</p>
+          <ul class="book__ways">
+            <li><a href="mailto:hello@example.com">hello@example.com</a><small>replace with Dana’s email</small></li>
+            <li><a href="https://instagram.com/" target="_blank" rel="noopener">@dana.tarot</a><small>replace with Dana’s Instagram</small></li>
+            <li><a href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a><small>add number</small></li>
+          </ul>
+        </div>
+        <form class="form" id="book-form" action="mailto:hello@example.com?subject=Reading%20request" method="post" enctype="text/plain">
+          <label><span>Name</span><input type="text" name="name" required autocomplete="name"></label>
+          <label><span>Email</span><input type="email" name="email" required autocomplete="email"></label>
+          <label><span>Reading</span>
+            <select name="reading" id="reading-select">
+              <option>Three Card Spread</option>
+              <option>One Card</option>
+              <option>Celtic Cross</option>
+              <option>Gift voucher</option>
+              <option>Not sure yet</option>
+            </select>
+          </label>
+          <label><span>Your question, or when you’re free</span><textarea name="message" rows="4"></textarea></label>
+          <button class="btn btn--gold" type="submit">Send</button>
+          <p class="form__note">Opens your email app with the message ready to send.</p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <svg class="ornament" viewBox="0 0 300 30" aria-hidden="true"><use href="#flourish"/></svg>
+    <p>Dana · The Reading Room</p>
+    <p class="foot__small">Readings are for reflection and guidance and are not a substitute for medical, legal or financial advice.<br>© <span id="year"></span> Dana</p>
+    <p class="foot__small"><a href="../">See the daylight version ↗</a></p>
+  </footer>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="flourish" viewBox="0 0 300 30">
+        <path d="M10 15h110M180 15h110" stroke="currentColor" stroke-width=".8" opacity=".7"/>
+        <path d="M150 4l3 8 8 3-8 3-3 8-3-8-8-3 8-3z" fill="currentColor"/>
+        <circle cx="132" cy="15" r="1.3" fill="currentColor"/><circle cx="168" cy="15" r="1.3" fill="currentColor"/>
+        <path d="M120 15c4-4 8-4 12 0M168 15c4-4 8-4 12 0" fill="none" stroke="currentColor" stroke-width=".8"/>
+      </symbol>
+      <symbol id="corner" viewBox="0 0 40 40">
+        <path d="M2 38V10a8 8 0 0 1 8-8h28" fill="none" stroke="currentColor" stroke-width="1"/>
+        <path d="M2 22c8 0 8-12 16-12" fill="none" stroke="currentColor" stroke-width=".8"/>
+        <path d="M10 8l1.5 4 4 1.5-4 1.5-1.5 4-1.5-4-4-1.5 4-1.5z" fill="currentColor"/>
+      </symbol>
+      <symbol id="back" viewBox="0 0 120 200">
+        <rect x="1" y="1" width="118" height="198" rx="7" fill="#15132A" stroke="#D4AF6A" stroke-width="1.2"/>
+        <rect x="7" y="7" width="106" height="186" rx="4" fill="none" stroke="#D4AF6A" stroke-width=".6" opacity=".6"/>
+        <path d="M60 100m-30 0a30 30 0 1 0 60 0a30 30 0 1 0-60 0" fill="none" stroke="#D4AF6A" stroke-width=".8" opacity=".8"/>
+        <path d="M60 62l9 29 29 9-29 9-9 29-9-29-29-9 29-9z" fill="none" stroke="#D4AF6A" stroke-width=".9"/>
+        <circle cx="60" cy="100" r="6" fill="#D4AF6A" opacity=".9"/>
+        <path d="M60 22l2 5 5 2-5 2-2 5-2-5-5-2 5-2zM60 164l2 5 5 2-5 2-2 5-2-5-5-2 5-2z" fill="#D4AF6A"/>
+        <path d="M20 20l3 0M97 20l3 0M20 180l3 0M97 180l3 0" stroke="#D4AF6A" stroke-width="1"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,5 +1,12 @@
 # Dana · Tarot — website
 
+Two versions of the same site live here:
+
+- `/` — **daylight**: soft & celestial (cream, blush, lavender), daily card draw
+- `/v2/` — **midnight**: candlelight & gold, interactive three-card spread
+
+Live: https://eliotmurrah.github.io/dana-tarot/ and https://eliotmurrah.github.io/dana-tarot/v2/
+
 A single-page, static site. No build step: open `index.html` or host the folder anywhere (Netlify, GitHub Pages, Vercel).
 
 Preview locally from the project root:
